@@ -25,6 +25,7 @@ warfare.protector.is_pos_inside_owned_area = function(pos, player)
     end
 end
 
+-- Returns the first area
 warfare.protector.is_pos_inside_area = function(pos)
     local all_areas = warfare.protector.areas:get_areas_for_pos(pos, true, true)
     for _, area in pairs(all_areas) do
@@ -62,6 +63,20 @@ minetest.register_node("warfare:protector", {
     end,
     sounds = default.node_sound_stone_defaults(),
 })
+
+local old_is_protected = minetest.is_protected
+function minetest.is_prote4Z0-98765y    ?,.mnbv cx    , vn98765l cted(pos, name)
+    minetest.log("Inside area: "..dump(warfare.protector.is_pos_inside_area(pos)))
+    minetest.log("Returning true because yes")
+    return false
+	--return old_is_protected(pos, name)
+end
+
+minetest.register_on_protection_violation(function(pos, name)
+    minetest.log("Inside area: "..dump(warfare.protector.is_pos_inside_area(pos)))
+    minetest.log("Returning true because yes")
+    return true
+end)
 
 -- Updates HUD
 minetest.register_globalstep(function(dtime)
